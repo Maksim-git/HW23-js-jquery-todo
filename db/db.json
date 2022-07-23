@@ -2,7 +2,7 @@
   "todos": [
     {
       "task": "test1",
-      "complited": false,
+      "complited": true,
       "id": 1
     },
     {
@@ -12,7 +12,7 @@
     },
     {
       "task": "test3",
-      "complited": false,
+      "complited": true,
       "id": 3
     },
     {
@@ -22,12 +22,12 @@
     },
     {
       "task": "asdfasdf",
-      "complited": false,
+      "complited": true,
       "id": 5
     },
     {
       "task": "asdf",
-      "complited": false,
+      "complited": true,
       "id": 6
     },
     {
@@ -39,6 +39,21 @@
       "task": "asdf",
       "complited": false,
       "id": 8
+    },
+    {
+      "task": "safasd",
+      "complited": false,
+      "id": 9
+    },
+    {
+      "task": "adsfafd",
+      "complited": false,
+      "id": 10
+    },
+    {
+      "task": "asdf",
+      "complited": false,
+      "id": 11
     }
   ]
 }

@@ -6,11 +6,11 @@ class TodoList {
   constructor($el, $data) {
     this.$el = $el;
     this.$input = $data;
+    this.$todos = [];
     $($mainWrap).on("click", ".add-task__button", () => {
       if (this.$input.val() === "") return;
       this.postTask(this.$input.val());
       $formInput.val("");
-      this.getTodos();
     });
     $($mainWrap).on("click", ".set-status", (e) => {
       let $isClicked;
@@ -22,6 +22,7 @@ class TodoList {
       this.changeStatus(e.target.parentElement.dataset.id, $isClicked);
     });
   }
+
   postTask(value) {
     $.ajax({
       url: "http://localhost:3000/todos",
@@ -35,11 +36,16 @@ class TodoList {
       }),
     })
       .done((e) => {
-        console.log(e);
+        this.addTodo(e);
       })
       .fail((err) => {
         console.log(err);
       });
+  }
+
+  addTodo(data) {
+    this.$todos.push(data);
+    this.render(this.$todos);
   }
 
   getTodos() {
@@ -48,7 +54,9 @@ class TodoList {
       dataType: "json",
     })
       .done((data) => {
-        this.render(data);
+        data.map((el) => {
+          this.addTodo(el);
+        });
       })
       .fail((err) => {
         console.log(err);
@@ -66,8 +74,11 @@ class TodoList {
         complited: status,
       }),
     })
-      .done(() => {
-        this.getTodos();
+      .done((e) => {
+        console.log(e.id);
+        let index = this.$todos.findIndex((el) => el.id == e.id);
+        this.$todos[index].complited = !this.$todos[index].complited;
+        this.render(this.$todos);
       })
       .fail((err) => {
         console.log(err);
@@ -76,7 +87,7 @@ class TodoList {
 
   render($render = []) {
     let $lis = "";
-    for (let el of $render) {
+    for (const el of $render) {
       if (!el) {
         return;
       }
